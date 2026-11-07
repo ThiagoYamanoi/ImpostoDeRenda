@@ -1,0 +1,53 @@
+package model;
+
+import java.util.Objects;
+
+public abstract class Declaracao {
+    private int id;
+    private double ganhoTributavel;
+    private double valorJaPago;
+
+    public Declaracao(int id, double ganhoTributavel, double valorJaPago) {
+        this.id = id;
+        this.ganhoTributavel = ganhoTributavel;
+        this.valorJaPago = valorJaPago;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public double getGanhoTributavel() {
+        return ganhoTributavel;
+    }
+
+    public double getValorJaPago() {
+        return valorJaPago;
+    }
+
+    public final double valorAPagar(){
+        return valorImposto() - valorJaPago;
+    }
+
+    protected abstract double valorImposto();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Declaracao that = (Declaracao) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("id: %d | GanhoTributavel: %f | ValorPago: %f | Valor a pagar: %f\n"
+                , id, ganhoTributavel, valorJaPago, valorAPagar());
+    }
+
+}
