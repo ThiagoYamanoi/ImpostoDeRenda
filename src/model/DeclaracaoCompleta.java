@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeclaracaoCompleta extends Declaracao{
+public class DeclaracaoCompleta extends Declaracao {
 
     private List<Despesa> despesas = new ArrayList<>();
 
@@ -13,39 +13,32 @@ public class DeclaracaoCompleta extends Declaracao{
 
     @Override
     protected double valorImposto() {
-            double renda = getGanhoTributavel() - totalDespesasDedutiveis();
+        double renda = getGanhoTributavel() - totalDespesasDedutiveis();
+        double imposto = 0;
 
-            renda = Math.max(0, renda);
+        renda = Math.max(0, renda);
 
-            double[] limites = {
-                    22847.88, 33919.92, 45012.72, 55976.16
-            };
+        double[] limites = {22847.88, 33919.92, 45012.72, 55976.16};
+        double[] aliquotas = {0.075, 0.15, 0.225, 0.275};
 
-            double[] aliquotas = {
-                    0.075, 0.15, 0.225, 0.275
-            };
-            double imposto = 0;
-            for (int i = limites.length - 1; i >= 0; i--) {
-
-                double parcela = Math.max(0, renda - limites[i]);
-
-                imposto += parcela * aliquotas[i];
-
-                renda -= parcela;
-            }
-            return imposto;
+        for (int i = limites.length - 1; i >= 0; i--) {
+            double parcela = Math.max(0, renda - limites[i]);
+            imposto += parcela * aliquotas[i];
+            renda -= parcela;
+        }
+        return imposto;
     }
 
     public List<Despesa> getDespesas() {
         return despesas;
     }
 
-    public double totalDespesasDedutiveis(){
+    public double totalDespesasDedutiveis() {
 
         double despesaSaude = getDespesaSaude();
         double despesasEducacao = getDespesasEducacao();
 
-        return  Math.min(despesaSaude, DespesaSaude.DEDUCAO_MAX) + Math.min(despesasEducacao, DespesaEducacao.DEDUCAO_MAX);
+        return Math.min(despesaSaude, DespesaSaude.DEDUCAO_MAX) + Math.min(despesasEducacao, DespesaEducacao.DEDUCAO_MAX);
     }
 
     public double getDespesaSaude() {
@@ -62,11 +55,11 @@ public class DeclaracaoCompleta extends Declaracao{
                 .sum();
     }
 
-    public void adicionarDespesa(Despesa despesa){
+    public void adicionarDespesa(Despesa despesa) {
         despesas.add(despesa);
     }
 
-    public void removerDespesa(Despesa despesa){
+    public void removerDespesa(Despesa despesa) {
         despesas.remove(despesa);
     }
 }

@@ -7,12 +7,15 @@ import persistence.DeclaracaoRepositoryImpl;
 import java.util.List;
 
 public class RelatorioSimulacaoService {
-    DeclaracaoRepository repository;
+    private final DeclaracaoRepository repository;
 
     public RelatorioSimulacaoService(DeclaracaoRepository repository) {
         this.repository = repository;
     }
 
+
+    // TODO - fica muito mais simples se você usar o toString em Declaração e Despesa direto.
+    // TODO - veja aqui: https://moodle.scl.ifsp.edu.br/mod/resource/view.php?id=265467
     public String criarRelatorio() {
         StringBuilder builder = new StringBuilder();
         if (repository.buscarDeclaracaoPorId(1).isPresent()) {

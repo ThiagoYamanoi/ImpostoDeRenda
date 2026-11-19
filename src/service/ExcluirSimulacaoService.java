@@ -6,7 +6,7 @@ import persistence.DeclaracaoRepositoryImpl;
 import java.util.NoSuchElementException;
 
 public class ExcluirSimulacaoService {
-    DeclaracaoRepository repository;
+    private final DeclaracaoRepository repository; //todo não esqueça de private e final só porque está no service
 
     public ExcluirSimulacaoService(DeclaracaoRepository repository) {
         this.repository = repository;
