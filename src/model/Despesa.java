@@ -3,10 +3,10 @@ package model;
 import java.util.Objects;
 
 public class Despesa {
-    private int id;
-    private String descricao;
-    private double valor;
-    private String cnpj;
+    private final int id;
+    private final String descricao;
+    private final double valor;
+    private final String cnpj;
 
     public Despesa(int id, String descricao, double valor, String cnpj) {
         this.id = id;
